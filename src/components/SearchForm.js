@@ -4,7 +4,7 @@ export class SearchForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputName: "lars",
+            inputName: "",
             resource: "people"
         };
     }
@@ -16,7 +16,7 @@ export class SearchForm extends Component {
 
     _handleComboChange = (event) => {
         let resource = event.target.value;
-        this.setState({resource} );
+        this.setState({resource});
     };
 
     _handleSubmit = (e) => {
@@ -34,18 +34,38 @@ export class SearchForm extends Component {
     render() {
         return <div>
             <form onSubmit={this._handleSubmit}>
-                <div>
-                    <p>I'm looking for a </p>
-                    <select id="resource-selector" onChange={this._handleComboChange}>
-                        <option value="people">character</option>
-                        <option value="planets">planet</option>
-                        <option value="starships">starship</option>
-                        <option value="vehicles">vehicle</option>
-                    </select>
+                <div className="field is-horizontal has-addons has-addons-centered search-form">
+
+                    <div className="field-label is-normal">
+                        <label className="label has-text-white has-text-right">I'm looking for a </label>
+                    </div>
+
+                    <div className="field-body">
+                        <div className="field">
+                            <span className="select">
+                                <select onChange={this._handleComboChange}>
+                                    <option value="people">character</option>
+                                    <option value="planets">planet</option>
+                                    <option value="starships">starship</option>
+                                    <option value="vehicles">vehicle</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        <div className="field-label is-normal">
+                            <label className="label has-text-white has-text-right">with name </label>
+                        </div>
+
+                        <div className="field">
+                            <input className="input" type="text" placeholder="with name..."
+                                   onChange={this._handleInputChange}/>
+                        </div>
+
+                        <div className="field">
+                            <button type="submit" className="button is-primary">Search</button>
+                        </div>
+                    </div>
                 </div>
-                <label>name: </label>
-                <input type="text" onChange={this._handleInputChange} placeholder="Name to search..."/>
-                <button>Search</button>
             </form>
         </div>
     }
