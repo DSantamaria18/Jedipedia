@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+// import ReactDOM from 'react-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {Title} from './components/Title'
+import {SearchForm} from './components/SearchForm'
+import {ResultsList} from "./components/ResultsList";
+// import './App.css';
+import './styles/styles.css';
+
+// import people from './data/people';
+
+
+
+class App extends Component {
+
+    state = {
+        count: 0,
+        results: []
+    };
+
+    _handleResults = (count, results) => {
+        this.setState({count, results});
+    };
+
+    _renderResults() {
+        const results = this.state.results;
+        const count = this.state.count;
+        return <ResultsList results={results} count={count}/>
+    }
+
+    render() {
+        return <div>
+            <Title className="title" text={"Welcome to the Jedipedia"}/>
+            <SearchForm onResults={this._handleResults}/>
+
+            {this.state.count === 0
+                ? <p>Sorry, no results found...</p>
+                : this._renderResults()
+            }
+        </div>
+    }
 }
 
 export default App;
